@@ -1,15 +1,15 @@
 package Project.BookStore.Service;
 
 import Project.BookStore.Entity.Book;
+import Project.BookStore.Exceptions.BadRequestException;
 import Project.BookStore.Repository.BookRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +22,22 @@ public class BookService {
 
     public Book findBookByName(String name){
         return bookRepository.findBookByName(name)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Book not found"));
+                .orElseThrow(() -> new BadRequestException("Book not found"));
+    }
+
+    public List<Book> findBookByNameContaining(String name){
+        return bookRepository.findBookByNameContaining(name)
+                .orElseThrow(() -> new BadRequestException("Books not Found"));
+    }
+
+    public List<Book> findBooksByAuthor(String author){
+        return bookRepository.findBooksByAuthor(author)
+                .orElseThrow(() -> new BadRequestException("Books not found"));
     }
 
     public Book findBookByIsbn(String isbn){
         return bookRepository.findBookByISBN(isbn)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Book not found"));
+                .orElseThrow(() -> new BadRequestException("Book not found"));
     }
 
     public Book save(@RequestBody Book book){
@@ -36,5 +46,9 @@ public class BookService {
 
     public void delete(String isbn){
         bookRepository.delete(findBookByIsbn(isbn));
+    }
+
+    public Boolean emptyValidation(List<Book> resultQuery){
+        return resultQuery.isEmpty();
     }
 }
