@@ -16,6 +16,7 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
+    @CrossOrigin
     @GetMapping
     public ResponseEntity<List<Book>> BookList(){
         return ResponseEntity.ok(bookService.ListAll());
