@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "Books")
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
 
-    @CrossOrigin
+
     @GetMapping
     public ResponseEntity<List<Book>> BookList(){
         return ResponseEntity.ok(bookService.ListAll());
@@ -27,7 +28,7 @@ public class BookController {
     public ResponseEntity<Book> findBookByName(@PathVariable String name){
         return ResponseEntity.ok(bookService.findBookByName(name));
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/search")
     public ResponseEntity<List<Book>> findBooksByNameContaining(@RequestParam String name){
         return ResponseEntity.ok(bookService.findBookByNameContaining(name));
