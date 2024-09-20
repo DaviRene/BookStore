@@ -1,13 +1,14 @@
 package Project.BookStore.Controller;
 
 import Project.BookStore.Entity.Book;
+import Project.BookStore.Entity.Genres;
 import Project.BookStore.Service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -23,6 +24,10 @@ public class BookController {
         return ResponseEntity.ok(bookService.ListAll());
     }
 
+    @GetMapping("/genres")
+    public List<Genres> getGenres(){
+        return List.of(Genres.values());
+    }
 
     @GetMapping(path = "/name/{name}")
     public ResponseEntity<Book> findBookByName(@PathVariable String name){

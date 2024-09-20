@@ -47,8 +47,4 @@ public class BookService {
     public void delete(String isbn){
         bookRepository.delete(findBookByIsbn(isbn));
     }
-
-    public Boolean emptyValidation(List<Book> resultQuery){
-        return resultQuery.isEmpty();
-    }
 }
