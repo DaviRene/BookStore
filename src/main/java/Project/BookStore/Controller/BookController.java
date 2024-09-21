@@ -58,4 +58,9 @@ public class BookController {
         bookService.delete(isbn);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/genres/{genre}")
+    public ResponseEntity<List<Book>> findBookByGenres(@PathVariable Genres genre){
+        return ResponseEntity.ok(bookService.findBooksByGenres(genre));
+    }
 }

@@ -1,6 +1,7 @@
 package Project.BookStore.Service;
 
 import Project.BookStore.Entity.Book;
+import Project.BookStore.Entity.Genres;
 import Project.BookStore.Exceptions.BadRequestException;
 import Project.BookStore.Repository.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,10 @@ public class BookService {
 
     public void delete(String isbn){
         bookRepository.delete(findBookByIsbn(isbn));
+    }
+
+    public List<Book> findBooksByGenres(Genres genre){
+        return bookRepository.findBookByGenres(genre)
+                .orElseThrow(() -> new BadRequestException("Books not found"));
     }
 }

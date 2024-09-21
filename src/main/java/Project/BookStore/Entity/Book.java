@@ -1,9 +1,6 @@
 package Project.BookStore.Entity;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,7 +25,7 @@ public class Book {
     private String publisher;
     private Date publishDate;
     @ElementCollection
+    @CollectionTable(name = "Bookgenres")
+    @Enumerated(EnumType.STRING)
     private List<Genres> genres;
-
-
 }
